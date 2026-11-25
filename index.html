@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Portfólio pessoal de Vinicius Susin de Araujo, estudante de Engenharia de Software.">
+  <title>Início | Portfólio de Vinicius Susin de Araujo</title>
+  <style>
+    :root {
+      --cor-fundo: #0b090f;
+      --cor-superficie: #16121e;
+      --cor-texto: #f3eff8;
+      --cor-texto-suave: #bdb4ca;
+      --cor-primaria: #b975ff;
+      --cor-botao: #7c22ce;
+      --cor-sobre-primaria: #ffffff;
+      --cor-secundaria: #ff4d5e;
+      --cor-borda: #342a45;
+      --cor-erro: #ff8a96;
+      --sombra: 0 8px 24px rgba(0, 0, 0, 0.45);
+      --raio: 14px;
+      --transicao: 0.3s ease;
+    }
+
+    body.tema-claro {
+      --cor-fundo: #f7f4fb;
+      --cor-superficie: #ffffff;
+      --cor-texto: #17111f;
+      --cor-texto-suave: #554b63;
+      --cor-primaria: #6b17b8;
+      --cor-secundaria: #c4101f;
+      --cor-borda: #ded5ea;
+      --cor-erro: #a80f1c;
+      --sombra: 0 8px 24px rgba(40, 15, 60, 0.1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.6;
+      color: var(--cor-texto);
+      background-color: var(--cor-fundo);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      transition: background-color var(--transicao), color var(--transicao);
+    }
+
+    main {
+      flex: 1;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    a {
+      color: var(--cor-primaria);
+      overflow-wrap: anywhere;
+    }
+
+    h1,
+    h2,
+    h3 {
+      line-height: 1.2;
+      margin-bottom: 0.75rem;
+    }
+
+    h1 { font-size: clamp(2rem, 6vw, 3.2rem); letter-spacing: -0.02em; }
+    h2 { font-size: clamp(1.5rem, 4vw, 2rem); }
+    h3 { font-size: 1.2rem; }
+
+    p {
+      margin-bottom: 1rem;
+    }
+
+    .secao h2::after {
+      content: "";
+      display: block;
+      width: 60px;
+      height: 4px;
+      margin-top: 0.4rem;
+      border-radius: 4px;
+      background: linear-gradient(90deg, var(--cor-primaria), var(--cor-secundaria));
+    }
+
+    .container {
+      width: min(1100px, 100% - 2rem);
+      margin-inline: auto;
+    }
+
+    .secao {
+      padding-block: 2.5rem;
+    }
+
+    .texto-destaque {
+      color: var(--cor-secundaria);
+    }
+
+    :focus-visible {
+      outline: 3px solid var(--cor-secundaria);
+      outline-offset: 3px;
+    }
+
+    .cabecalho {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      padding: 0.9rem max(1rem, (100% - 1100px) / 2);
+      background-color: var(--cor-superficie);
+      border-bottom: 1px solid var(--cor-borda);
+    }
+
+    .logo {
+      margin-right: auto;
+      font-size: 1.4rem;
+      font-weight: 800;
+      text-decoration: none;
+      color: var(--cor-texto);
+    }
+
+    .logo span {
+      color: var(--cor-primaria);
+    }
+
+    .menu ul {
+      display: flex;
+      gap: 1.5rem;
+      list-style: none;
+    }
+
+    .menu a {
+      position: relative;
+      display: inline-block;
+      padding-block: 0.25rem;
+      text-decoration: none;
+      font-weight: 600;
+      color: var(--cor-texto);
+    }
+
+    .menu a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--cor-primaria);
+      transition: width var(--transicao);
+    }
+
+    .menu a:hover::after,
+    .menu a[aria-current="page"]::after {
+      width: 100%;
+    }
+
+    .menu a[aria-current="page"] {
+      color: var(--cor-primaria);
+    }
+
+    .botao-tema {
+      padding: 0.4rem 0.8rem;
+      font: inherit;
+      font-size: 0.85rem;
+      color: var(--cor-texto);
+      background: transparent;
+      border: 1px solid var(--cor-borda);
+      border-radius: 999px;
+      cursor: pointer;
+    }
+
+    .botao-tema:hover {
+      border-color: var(--cor-primaria);
+    }
+
+    .botao-menu {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      padding: 0.5rem;
+      background: transparent;
+      border: 0;
+      cursor: pointer;
+    }
+
+    .botao-menu span {
+      width: 24px;
+      height: 3px;
+      border-radius: 3px;
+      background-color: var(--cor-texto);
+      transition: transform var(--transicao), opacity var(--transicao);
+    }
+
+    .botao-menu[aria-expanded="true"] span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .botao-menu[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+    .botao-menu[aria-expanded="true"] span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+    .botao {
+      display: inline-block;
+      padding: 0.75rem 1.4rem;
+      font: inherit;
+      font-weight: 600;
+      text-decoration: none;
+      text-align: center;
+      color: var(--cor-sobre-primaria);
+      background-color: var(--cor-botao);
+      border: 2px solid var(--cor-botao);
+      border-radius: 999px;
+      cursor: pointer;
+      transition: transform var(--transicao), box-shadow var(--transicao);
+    }
+
+    .botao:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--sombra);
+    }
+
+    .botao-contorno {
+      color: var(--cor-primaria);
+      background-color: transparent;
+    }
+
+    .grupo-botoes {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .cartao {
+      padding: 1.5rem;
+      background-color: var(--cor-superficie);
+      border: 1px solid var(--cor-borda);
+      border-radius: var(--raio);
+      box-shadow: var(--sombra);
+    }
+
+    .grade-duas {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .etiqueta {
+      margin-bottom: 0.75rem;
+      padding: 0.15rem 0.7rem;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--cor-secundaria);
+      border: 1px solid currentColor;
+      border-radius: 999px;
+    }
+
+    .destaque {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 3rem;
+      padding-block: 4rem;
+    }
+
+    .destaque-texto {
+      flex: 1;
+      animation: surgir 0.8s ease both;
+    }
+
+    .saudacao {
+      margin-bottom: 0.25rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--cor-primaria);
+    }
+
+    .digitacao {
+      min-height: 3.2em;
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--cor-texto-suave);
+    }
+
+    .cursor {
+      color: var(--cor-secundaria);
+      animation: piscar 0.8s step-end infinite;
+    }
+
+    .destaque-foto {
+      text-align: center;
+      animation: surgir 0.8s 0.2s ease both;
+    }
+
+    .destaque-foto img {
+      width: 280px;
+      aspect-ratio: 1;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 6px solid var(--cor-botao);
+      box-shadow: var(--sombra);
+      animation: flutuar 4s ease-in-out infinite;
+    }
+
+    .destaque-foto figcaption {
+      margin-top: 1rem;
+      color: var(--cor-texto-suave);
+    }
+
+    .lista-marcada {
+      list-style: none;
+    }
+
+    .lista-marcada li::before {
+      content: "▸ ";
+      color: var(--cor-secundaria);
+    }
+
+    .lista-habilidades {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.25rem;
+      margin-top: 1.5rem;
+      list-style: none;
+    }
+
+    .habilidade {
+      animation: surgir 0.6s ease both;
+      transition: border-color var(--transicao);
+    }
+
+    .habilidade:hover {
+      border-color: var(--cor-secundaria);
+    }
+
+    .habilidade .etiqueta {
+      display: inline-block;
+      margin: 0;
+    }
+
+    .foto-sobre img {
+      width: 100%;
+      height: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      border-radius: var(--raio);
+    }
+
+    .grade-esportes {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.25rem;
+    }
+
+    .esporte {
+      padding: 0;
+      overflow: hidden;
+      transition: transform var(--transicao), border-color var(--transicao);
+    }
+
+    .esporte:hover {
+      transform: translateY(-6px);
+      border-color: var(--cor-secundaria);
+    }
+
+    .esporte img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+    }
+
+    .esporte figcaption {
+      padding: 1rem;
+    }
+
+    .esporte strong {
+      display: block;
+      color: var(--cor-primaria);
+    }
+
+    .tabela-responsiva {
+      margin-top: 1.5rem;
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: var(--cor-superficie);
+    }
+
+    caption {
+      margin-bottom: 0.5rem;
+      text-align: left;
+      color: var(--cor-texto-suave);
+    }
+
+    th,
+    td {
+      padding: 0.8rem;
+      text-align: left;
+      border: 1px solid var(--cor-borda);
+    }
+
+    th {
+      color: var(--cor-sobre-primaria);
+      background-color: var(--cor-botao);
+    }
+
+    tbody tr:nth-child(even) {
+      background-color: var(--cor-fundo);
+    }
+
+    .rodape {
+      margin-top: 3rem;
+      padding: 2rem 1rem;
+      text-align: center;
+      color: #d9d3e3;
+      background-color: #000000;
+      border-top: 4px solid;
+      border-image: linear-gradient(90deg, #e11d2e, #7c22ce) 1;
+    }
+
+    .redes {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-bottom: 1rem;
+      list-style: none;
+    }
+
+    .redes a {
+      display: inline-block;
+      font-weight: 600;
+      color: #ffffff;
+      transition: color var(--transicao), transform var(--transicao);
+    }
+
+    .redes a:hover {
+      color: #ff6b79;
+      transform: scale(1.1);
+    }
+
+    .rodape p {
+      margin: 0;
+      font-size: 0.9rem;
+    }
+
+    .botao-topo {
+      position: fixed;
+      right: 1rem;
+      bottom: 1rem;
+      width: 46px;
+      height: 46px;
+      font-size: 1.3rem;
+      color: var(--cor-sobre-primaria);
+      background-color: var(--cor-botao);
+      border: 0;
+      border-radius: 50%;
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity var(--transicao), visibility var(--transicao);
+    }
+
+    .botao-topo.visivel {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    @keyframes surgir {
+      from { opacity: 0; transform: translateY(25px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes flutuar {
+      0%, 100% { transform: translateY(0); }
+      50%      { transform: translateY(-12px); }
+    }
+
+    @keyframes piscar {
+      50% { opacity: 0; }
+    }
+
+    @keyframes tremer {
+      25% { transform: translateX(-6px); }
+      75% { transform: translateX(6px); }
+    }
+
+    .revelar.escondido {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    .revelar {
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    @media (max-width: 850px) {
+      .destaque {
+        flex-direction: column-reverse;
+        gap: 2rem;
+        padding-block: 2.5rem;
+        text-align: center;
+      }
+
+      .grupo-botoes {
+        justify-content: center;
+      }
+
+      .grade-duas,
+      .etapas {
+        grid-template-columns: 1fr;
+      }
+
+      .grade-esportes {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .cabecalho {
+        flex-wrap: wrap;
+        gap: 0.75rem;
+      }
+
+      .botao-menu {
+        display: flex;
+        order: 2;
+      }
+
+      .menu {
+        display: none;
+        order: 3;
+        width: 100%;
+      }
+
+      .menu.aberto {
+        display: block;
+        animation: surgir 0.3s ease;
+      }
+
+      .menu ul {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .destaque-foto img {
+        width: 200px;
+      }
+
+      .grade-esportes {
+        grid-template-columns: 1fr;
+      }
+
+      th,
+      td {
+        padding: 0.5rem;
+        font-size: 0.9rem;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+
+    @media (max-width: 380px) {
+      .logo { font-size: 1.15rem; }
+      .cabecalho { gap: 0.4rem; }
+      .botao-tema { padding: 0.3rem 0.5rem; font-size: 0.75rem; }
+      th, td { padding: 0.35rem; font-size: 0.75rem; }
+    }
+  </style>
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header class="cabecalho">
+    <a href="index.html" class="logo">Vinicius<span>Susin</span></a>
+    <button type="button" class="botao-menu" id="botaoMenu" aria-label="Abrir menu" aria-expanded="false" aria-controls="menuPrincipal">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="menu" id="menuPrincipal" aria-label="Menu principal">
+      <ul>
+        <li><a href="index.html" aria-current="page">Início</a></li>
+        <li><a href="projetos.html">Projetos</a></li>
+        <li><a href="contato.html">Contato</a></li>
+      </ul>
+    </nav>
+    <button type="button" class="botao-tema" id="botaoTema">Tema claro</button>
+  </header>
+
+  <main>
+    <section class="destaque container">
+      <div class="destaque-texto">
+        <p class="saudacao" id="saudacao">Olá!</p>
+        <h1>Eu sou <span class="texto-destaque">Vinicius Susin de Araujo</span></h1>
+        <p class="digitacao">Sou <span id="textoDigitado">estudante de Engenharia de Software</span><span class="cursor" aria-hidden="true">|</span></p>
+        <p>Tenho 19 anos, me interesso muito por banco de dados e quero aprender sobre inteligência artificial.</p>
+        <div class="grupo-botoes">
+          <a href="projetos.html" class="botao">Ver experiências</a>
+          <a href="contato.html" class="botao botao-contorno">Fale comigo</a>
+        </div>
+      </div>
+      <figure class="destaque-foto">
+        <img src="img/foto1-perfil.webp" alt="Foto de perfil de Vinicius Susin de Araujo" width="280" height="280">
+        <figcaption>Londrina, Paraná</figcaption>
+      </figure>
+    </section>
+
+    <section class="secao container revelar" aria-labelledby="tituloSobre">
+      <h2 id="tituloSobre">Sobre mim</h2>
+      <div class="grade-duas">
+        <article class="cartao">
+          <h3>Quem sou</h3>
+          <p>Nasci em <strong>Pato Branco</strong>, no Paraná, e atualmente moro em <strong>Londrina</strong>. Estou no primeiro ano de <strong>Engenharia de Software</strong>.</p>
+          <p>Além das aulas da faculdade, estou terminando um curso de Java e também estudo inglês.</p>
+          <p>Este ano fui monitor no Pensamento Computacional e no Londrinense Tech, ajudando no ensino de lógica e do básico de programação.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="secao container revelar" aria-labelledby="tituloHabilidades">
+      <h2 id="tituloHabilidades">Estudos e interesses</h2>
+      <ul class="lista-habilidades" id="listaHabilidades"></ul>
+      <noscript><p>Lógica de programação, Java, inglês, banco de dados, inteligência artificial, HTML, CSS e JavaScript.</p></noscript>
+    </section>
+
+    <section class="secao container revelar" aria-labelledby="tituloFormacao">
+      <h2 id="tituloFormacao">Formação</h2>
+      <div class="tabela-responsiva">
+        <table>
+          <caption>Minha trajetória de estudos</caption>
+          <thead>
+            <tr>
+              <th scope="col">Curso</th>
+              <th scope="col">Detalhes</th>
+              <th scope="col">Situação</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Engenharia de Software</td><td>UniFil, 1º ano</td><td>Cursando (<time datetime="2026">2026</time>)</td></tr>
+            <tr><td>Java</td><td>Curso complementar</td><td>Em andamento</td></tr>
+            <tr><td>Inglês</td><td>Curso de idioma</td><td>Em andamento</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="secao container revelar" aria-labelledby="tituloEsportes">
+      <h2 id="tituloEsportes">Fora das telas: esportes</h2>
+      <p>Gosto de esportes em geral.</p>
+      <div class="grade-esportes">
+          <figure class="cartao esporte">
+            <img src="img/flamengodeca.jpg" alt="Vinicius e o futebol" width="800" height="600">
+            <figcaption><strong>Futebol</strong> Futebol sempre fez parte da minha vida e este ano consegui ver meu clube de coração ser Decacmpeão brasileiro.</figcaption>
+          </figure>
+          <figure class="cartao esporte">
+            <img src="img/Shai.jpg" alt="Vinicius e o basquete" width="800" height="600">
+            <figcaption><strong>Basquete</strong> Com o passar do tempo comecei a acompanhar basquete, este é meu jogador favorito Shai Gilgeous-Alexander o utlimo MVP da temprada regular da NBA.</figcaption>
+          </figure>
+          <figure class="cartao esporte">
+            <img src="img/JoaoFoneseca.jpg" alt="Vinicius e o tênis" width="800" height="600">
+            <figcaption><strong>Tênis</strong> Tenis é outro esporte que sempre fez parte da minha vida, quando eu era mais novo fazia aula, e este é o jogador que acompanho atualmente, João Fonseca.</figcaption>
+          </figure>
+          <figure class="cartao esporte">
+            <img src="img/images.jpg" alt="Vinicius e a Fórmula 1" width="800" height="600">
+            <figcaption><strong>Fórmula 1</strong> Como sempre gostei de carros acompanho a fórmula um a muito tempo e o Lewis Hamilton que é o maior piloto de todos os tempos é um dos meus maiores ídolos.</figcaption>
+          </figure>
+      </div>
+    </section>
+  </main>
+
+  <footer class="rodape">
+    <nav aria-label="Redes sociais">
+      <ul class="redes">
+        <li><a href="https://www.linkedin.com/in/vin%C3%ADcius-susin-de-ara%C3%BAjo-a703b4350/" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+        <li><a href="https://github.com/viniciusaraujo-tech" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+        <li><a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=vinicius.araujo@edu.unifil.br" target="_blank" rel="noopener noreferrer">Gmail</a></li>
+      </ul>
+    </nav>
+    <p>&copy; <span id="anoAtual">2026</span> Vinicius Susin de Araujo. Todos os direitos reservados.</p>
+  </footer>
+
+  <button type="button" class="botao-topo" id="botaoTopo" aria-label="Voltar ao topo">↑</button>
+</body>
+</html>

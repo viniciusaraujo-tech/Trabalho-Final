@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Entre em contato com Vinicius Susin de Araujo.">
+  <title>Contato | Portfólio de Vinicius Susin de Araujo</title>
+  <style>
+    :root {
+      --cor-fundo: #0b090f;
+      --cor-superficie: #16121e;
+      --cor-texto: #f3eff8;
+      --cor-texto-suave: #bdb4ca;
+      --cor-primaria: #b975ff;
+      --cor-botao: #7c22ce;
+      --cor-sobre-primaria: #ffffff;
+      --cor-secundaria: #ff4d5e;
+      --cor-borda: #342a45;
+      --cor-erro: #ff8a96;
+      --sombra: 0 8px 24px rgba(0, 0, 0, 0.45);
+      --raio: 14px;
+      --transicao: 0.3s ease;
+    }
+
+    body.tema-claro {
+      --cor-fundo: #f7f4fb;
+      --cor-superficie: #ffffff;
+      --cor-texto: #17111f;
+      --cor-texto-suave: #554b63;
+      --cor-primaria: #6b17b8;
+      --cor-secundaria: #c4101f;
+      --cor-borda: #ded5ea;
+      --cor-erro: #a80f1c;
+      --sombra: 0 8px 24px rgba(40, 15, 60, 0.1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.6;
+      color: var(--cor-texto);
+      background-color: var(--cor-fundo);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      transition: background-color var(--transicao), color var(--transicao);
+    }
+
+    main {
+      flex: 1;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    a {
+      color: var(--cor-primaria);
+      overflow-wrap: anywhere;
+    }
+
+    h1,
+    h2,
+    h3 {
+      line-height: 1.2;
+      margin-bottom: 0.75rem;
+    }
+
+    h1 { font-size: clamp(2rem, 6vw, 3.2rem); letter-spacing: -0.02em; }
+    h2 { font-size: clamp(1.5rem, 4vw, 2rem); }
+    h3 { font-size: 1.2rem; }
+
+    p {
+      margin-bottom: 1rem;
+    }
+
+    .secao h2::after {
+      content: "";
+      display: block;
+      width: 60px;
+      height: 4px;
+      margin-top: 0.4rem;
+      border-radius: 4px;
+      background: linear-gradient(90deg, var(--cor-primaria), var(--cor-secundaria));
+    }
+
+    .container {
+      width: min(1100px, 100% - 2rem);
+      margin-inline: auto;
+    }
+
+    .secao {
+      padding-block: 2.5rem;
+    }
+
+    .texto-destaque {
+      color: var(--cor-secundaria);
+    }
+
+    :focus-visible {
+      outline: 3px solid var(--cor-secundaria);
+      outline-offset: 3px;
+    }
+
+    .cabecalho {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      padding: 0.9rem max(1rem, (100% - 1100px) / 2);
+      background-color: var(--cor-superficie);
+      border-bottom: 1px solid var(--cor-borda);
+    }
+
+    .logo {
+      margin-right: auto;
+      font-size: 1.4rem;
+      font-weight: 800;
+      text-decoration: none;
+      color: var(--cor-texto);
+    }
+
+    .logo span {
+      color: var(--cor-primaria);
+    }
+
+    .menu ul {
+      display: flex;
+      gap: 1.5rem;
+      list-style: none;
+    }
+
+    .menu a {
+      position: relative;
+      display: inline-block;
+      padding-block: 0.25rem;
+      text-decoration: none;
+      font-weight: 600;
+      color: var(--cor-texto);
+    }
+
+    .menu a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--cor-primaria);
+      transition: width var(--transicao);
+    }
+
+    .menu a:hover::after,
+    .menu a[aria-current="page"]::after {
+      width: 100%;
+    }
+
+    .menu a[aria-current="page"] {
+      color: var(--cor-primaria);
+    }
+
+    .botao-tema {
+      padding: 0.4rem 0.8rem;
+      font: inherit;
+      font-size: 0.85rem;
+      color: var(--cor-texto);
+      background: transparent;
+      border: 1px solid var(--cor-borda);
+      border-radius: 999px;
+      cursor: pointer;
+    }
+
+    .botao-tema:hover {
+      border-color: var(--cor-primaria);
+    }
+
+    .botao-menu {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      padding: 0.5rem;
+      background: transparent;
+      border: 0;
+      cursor: pointer;
+    }
+
+    .botao-menu span {
+      width: 24px;
+      height: 3px;
+      border-radius: 3px;
+      background-color: var(--cor-texto);
+      transition: transform var(--transicao), opacity var(--transicao);
+    }
+
+    .botao-menu[aria-expanded="true"] span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .botao-menu[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+    .botao-menu[aria-expanded="true"] span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+    .botao {
+      display: inline-block;
+      padding: 0.75rem 1.4rem;
+      font: inherit;
+      font-weight: 600;
+      text-decoration: none;
+      text-align: center;
+      color: var(--cor-sobre-primaria);
+      background-color: var(--cor-botao);
+      border: 2px solid var(--cor-botao);
+      border-radius: 999px;
+      cursor: pointer;
+      transition: transform var(--transicao), box-shadow var(--transicao);
+    }
+
+    .botao:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--sombra);
+    }
+
+    .botao-contorno {
+      color: var(--cor-primaria);
+      background-color: transparent;
+    }
+
+    .grupo-botoes {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .cartao {
+      padding: 1.5rem;
+      background-color: var(--cor-superficie);
+      border: 1px solid var(--cor-borda);
+      border-radius: var(--raio);
+      box-shadow: var(--sombra);
+    }
+
+    .grade-duas {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .etiqueta {
+      margin-bottom: 0.75rem;
+      padding: 0.15rem 0.7rem;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--cor-secundaria);
+      border: 1px solid currentColor;
+      border-radius: 999px;
+    }
+
+    .formulario {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .campo {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+
+    .campo label {
+      font-weight: 600;
+    }
+
+    .campo input,
+    .campo select,
+    .campo textarea {
+      width: 100%;
+      padding: 0.7rem;
+      font: inherit;
+      color: var(--cor-texto);
+      background-color: var(--cor-fundo);
+      border: 2px solid var(--cor-borda);
+      border-radius: 8px;
+      transition: border-color var(--transicao);
+    }
+
+    .campo textarea {
+      resize: vertical;
+    }
+
+    .campo input:focus,
+    .campo select:focus,
+    .campo textarea:focus {
+      border-color: var(--cor-primaria);
+    }
+
+    .campo.invalido input,
+    .campo.invalido textarea {
+      border-color: var(--cor-erro);
+      animation: tremer 0.3s ease;
+    }
+
+    .erro {
+      color: var(--cor-erro);
+    }
+
+    .retorno a {
+      display: inline-block;
+      font-weight: 700;
+    }
+
+    address {
+      margin-block: 1.5rem;
+      font-style: normal;
+    }
+
+    .lista-contatos {
+      list-style: none;
+    }
+
+    .lista-contatos li {
+      padding-block: 0.6rem;
+      border-bottom: 1px solid var(--cor-borda);
+    }
+
+    #avisoCopia {
+      margin-top: 0.75rem;
+    }
+
+    .rodape {
+      margin-top: 3rem;
+      padding: 2rem 1rem;
+      text-align: center;
+      color: #d9d3e3;
+      background-color: #000000;
+      border-top: 4px solid;
+      border-image: linear-gradient(90deg, #e11d2e, #7c22ce) 1;
+    }
+
+    .redes {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-bottom: 1rem;
+      list-style: none;
+    }
+
+    .redes a {
+      display: inline-block;
+      font-weight: 600;
+      color: #ffffff;
+      transition: color var(--transicao), transform var(--transicao);
+    }
+
+    .redes a:hover {
+      color: #ff6b79;
+      transform: scale(1.1);
+    }
+
+    .rodape p {
+      margin: 0;
+      font-size: 0.9rem;
+    }
+
+    .botao-topo {
+      position: fixed;
+      right: 1rem;
+      bottom: 1rem;
+      width: 46px;
+      height: 46px;
+      font-size: 1.3rem;
+      color: var(--cor-sobre-primaria);
+      background-color: var(--cor-botao);
+      border: 0;
+      border-radius: 50%;
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity var(--transicao), visibility var(--transicao);
+    }
+
+    .botao-topo.visivel {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    @keyframes surgir {
+      from { opacity: 0; transform: translateY(25px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes flutuar {
+      0%, 100% { transform: translateY(0); }
+      50%      { transform: translateY(-12px); }
+    }
+
+    @keyframes piscar {
+      50% { opacity: 0; }
+    }
+
+    @keyframes tremer {
+      25% { transform: translateX(-6px); }
+      75% { transform: translateX(6px); }
+    }
+
+    .revelar.escondido {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    .revelar {
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    @media (max-width: 850px) {
+      .destaque {
+        flex-direction: column-reverse;
+        gap: 2rem;
+        padding-block: 2.5rem;
+        text-align: center;
+      }
+
+      .grupo-botoes {
+        justify-content: center;
+      }
+
+      .grade-duas,
+      .etapas {
+        grid-template-columns: 1fr;
+      }
+
+      .grade-esportes {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .cabecalho {
+        flex-wrap: wrap;
+        gap: 0.75rem;
+      }
+
+      .botao-menu {
+        display: flex;
+        order: 2;
+      }
+
+      .menu {
+        display: none;
+        order: 3;
+        width: 100%;
+      }
+
+      .menu.aberto {
+        display: block;
+        animation: surgir 0.3s ease;
+      }
+
+      .menu ul {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .destaque-foto img {
+        width: 200px;
+      }
+
+      .grade-esportes {
+        grid-template-columns: 1fr;
+      }
+
+      th,
+      td {
+        padding: 0.5rem;
+        font-size: 0.9rem;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+
+    @media (max-width: 380px) {
+      .logo { font-size: 1.15rem; }
+      .cabecalho { gap: 0.4rem; }
+      .botao-tema { padding: 0.3rem 0.5rem; font-size: 0.75rem; }
+      th, td { padding: 0.35rem; font-size: 0.75rem; }
+    }
+  </style>
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header class="cabecalho">
+    <a href="index.html" class="logo">Vinicius<span>Susin</span></a>
+    <button type="button" class="botao-menu" id="botaoMenu" aria-label="Abrir menu" aria-expanded="false" aria-controls="menuPrincipal">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="menu" id="menuPrincipal" aria-label="Menu principal">
+      <ul>
+        <li><a href="index.html">Início</a></li>
+        <li><a href="projetos.html">Projetos</a></li>
+        <li><a href="contato.html" aria-current="page">Contato</a></li>
+      </ul>
+    </nav>
+    <button type="button" class="botao-tema" id="botaoTema">Tema claro</button>
+  </header>
+
+  <main>
+    <section class="secao container" aria-labelledby="tituloContato">
+      <h1 id="tituloContato">Entre em <span class="texto-destaque">contato</span></h1>
+      <p>Preencha o formulário ou fale comigo pelas redes.</p>
+
+      <div class="grade-duas">
+        <form class="cartao formulario" id="formularioContato" novalidate>
+          <div class="campo">
+            <label for="nome">Nome</label>
+            <input type="text" id="nome" name="nome" autocomplete="name" placeholder="Seu nome" required aria-describedby="erroNome">
+            <small class="erro" id="erroNome"></small>
+          </div>
+
+          <div class="campo">
+            <label for="email">E-mail</label>
+            <input type="email" id="email" name="email" autocomplete="email" placeholder="voce@exemplo.com" required aria-describedby="erroEmail">
+            <small class="erro" id="erroEmail"></small>
+          </div>
+
+          <div class="campo">
+            <label for="assunto">Assunto</label>
+            <select id="assunto" name="assunto">
+              <option value="Oportunidade">Oportunidade</option>
+              <option value="Projeto">Projeto</option>
+              <option value="Outro assunto">Outro assunto</option>
+            </select>
+          </div>
+
+          <div class="campo">
+            <label for="mensagem">Mensagem</label>
+            <textarea id="mensagem" name="mensagem" rows="5" maxlength="300" placeholder="Escreva sua mensagem" required aria-describedby="erroMensagem contadorCaracteres"></textarea>
+            <small id="contadorCaracteres">0 / 300 caracteres</small>
+            <small class="erro" id="erroMensagem"></small>
+          </div>
+
+          <button type="submit" class="botao">Preparar mensagem</button>
+          <div class="retorno" id="retornoFormulario" aria-live="polite"></div>
+        </form>
+
+        <aside class="cartao">
+          <h2>Onde me encontrar</h2>
+          <address>
+            <ul class="lista-contatos">
+              <li><strong>E-mail:</strong> <a href="mailto:vinicius.araujo@edu.unifil.br">vinicius.araujo@edu.unifil.br</a></li>
+              <li><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/vin%C3%ADcius-susin-de-ara%C3%BAjo-a703b4350/" target="_blank" rel="noopener noreferrer">Vinicius Susin de Araujo</a></li>
+              <li><strong>GitHub:</strong> <a href="https://github.com/viniciusaraujo-tech" target="_blank" rel="noopener noreferrer">viniciusaraujo-tech</a></li>
+              <li><strong>Cidade:</strong> Londrina, Paraná</li>
+            </ul>
+          </address>
+          <button type="button" class="botao botao-contorno" id="botaoCopiar" data-email="vinicius.araujo@edu.unifil.br">Copiar e-mail</button>
+          <p id="avisoCopia" aria-live="polite"></p>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer class="rodape">
+    <nav aria-label="Redes sociais">
+      <ul class="redes">
+        <li><a href="https://www.linkedin.com/in/vin%C3%ADcius-susin-de-ara%C3%BAjo-a703b4350/" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+        <li><a href="https://github.com/viniciusaraujo-tech" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+        <li><a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=vinicius.araujo@edu.unifil.br" target="_blank" rel="noopener noreferrer">Gmail</a></li>
+      </ul>
+    </nav>
+    <p>&copy; <span id="anoAtual">2026</span> Vinicius Susin de Araujo. Todos os direitos reservados.</p>
+  </footer>
+
+  <button type="button" class="botao-topo" id="botaoTopo" aria-label="Voltar ao topo">↑</button>
+</body>
+</html>
